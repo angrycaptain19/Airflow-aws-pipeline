@@ -52,12 +52,11 @@ class AWSS3(object):
         try:
 
             Response = json.dumps(Response)
-            response = self.client.put_object(
+            return self.client.put_object(
                 ACL='private',
                 Body=bytes(json.dumps(Response).encode("utf-8")),
                 Bucket=self.BucketName,
                 Key=Key)
-            return response
         except Exception as e:
             print("Error : {} ".format(e))
             return {"Error":str(e)}
@@ -87,10 +86,10 @@ class AWSS3(object):
         flag = self.ItemExists(Key=key)
         if flag:
             data = self.getItem(Key=key)
-            return data
         else:
             self.putFiles(Key=key, Response=data)
-            return data
+
+        return data
 
 
 

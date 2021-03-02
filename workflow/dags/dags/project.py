@@ -38,11 +38,7 @@ def crawl_files(**context):
     path = os.path.join(os.getcwd(), "dags/common")
     os.chdir(path)
 
-    files = []
-    for x in os.listdir():
-        if ".csv" in x:
-            files.append(x)
-
+    files = [x for x in os.listdir() if ".csv" in x]
     context['ti'].xcom_push(key='files', value=files)
 
 
